@@ -17,3 +17,6 @@ if (keyboard_check(vk_right)){
 //if (keyboard_check(vk_down)){
 //	y += walk_speed
 //}
+
+y = y + vsp;
+vsp = vsp + grav;
