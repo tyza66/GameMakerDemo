@@ -68,3 +68,23 @@ x += hsp;
 y = y + vsp;
 vsp = vsp + grav;
 
+// 介绍一下三种变量类型
+// x,y 这种绿色的变量叫做build-in variable 中文名叫内置变量
+// 内置变量本身含有设置好的功能和数据接口
+// image_alpha表示不透明度
+
+// 第二种叫做instance variable 实例变量
+// Object是一切Instance的母本 在游戏运行的时候是不存在Object的
+// 游戏运行的时候所有的交互物体都是Instance object_index能读取到Instance母本的名字
+// 在游戏中创建instance的时候我们调用的是instance_create方法
+// 所说的示例变量就是挂载在实例上面的变量 只有在当前的示例中才可以直接访问到
+// 如果想访问别的实例的实例变量 直接用cha_player.xxx 这样直接点到就行了
+
+// 大部分的内置变量和实例变量的作用域是一样的
+
+// 还有一种叫做local variable 本地变量 作用域是当前代码块
+// 在本地变量前面需要加声明语句var 例如 var a = 1;
+// 本地变量的作用域对事件也是起作用的
+
+// 其实除了那些以外还有一种全局变量 作用域是全局
+global.myGlobalVariable = 96;
