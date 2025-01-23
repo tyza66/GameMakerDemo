@@ -36,6 +36,7 @@
   "resources":[
     {"id":{"name":"cha_player","path":"objects/cha_player/cha_player.yy",},},
     {"id":{"name":"Level_1","path":"rooms/Level_1/Level_1.yy",},},
+    {"id":{"name":"img_player","path":"sprites/img_player/img_player.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
