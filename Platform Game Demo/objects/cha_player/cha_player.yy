@@ -1,7 +1,9 @@
 {
   "$GMObject":"",
   "%Name":"cha_player",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"cha_player",
   "overriddenProperties":[],
@@ -27,7 +29,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"img_player",
+    "path":"sprites/img_player/img_player.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

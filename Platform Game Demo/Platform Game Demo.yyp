@@ -35,13 +35,13 @@
   "name":"Platform Game Demo",
   "resources":[
     {"id":{"name":"cha_player","path":"objects/cha_player/cha_player.yy",},},
-    {"id":{"name":"Level_1","path":"rooms/Level_1/Level_1.yy",},},
+    {"id":{"name":"lev_stage_1","path":"rooms/lev_stage_1/lev_stage_1.yy",},},
     {"id":{"name":"img_player","path":"sprites/img_player/img_player.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"Level_1","path":"rooms/Level_1/Level_1.yy",},},
+    {"roomId":{"name":"lev_stage_1","path":"rooms/lev_stage_1/lev_stage_1.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
