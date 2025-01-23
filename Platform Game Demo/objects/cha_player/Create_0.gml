@@ -7,4 +7,4 @@ show_debug_message("这是一条控制台消息，当前创建了玩家对象")
 walk_speed = 10;
 vsp = 0; // 这是用于手动实现重力的垂直速度
 
-grav = 1;
+grav = 0.7;

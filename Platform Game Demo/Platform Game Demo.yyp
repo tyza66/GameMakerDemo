@@ -35,7 +35,9 @@
   "name":"Platform Game Demo",
   "resources":[
     {"id":{"name":"cha_player","path":"objects/cha_player/cha_player.yy",},},
+    {"id":{"name":"env_ground","path":"objects/env_ground/env_ground.yy",},},
     {"id":{"name":"lev_stage_1","path":"rooms/lev_stage_1/lev_stage_1.yy",},},
+    {"id":{"name":"img_ground","path":"sprites/img_ground/img_ground.yy",},},
     {"id":{"name":"img_player","path":"sprites/img_player/img_player.yy",},},
   ],
   "resourceType":"GMProject",
