@@ -11,3 +11,7 @@ hsp = 0; // 用于存储水平方向的速度
 vsp = 0; // 这是用于手动实现重力的垂直速度
 
 grav = 0.7;
+
+jump_stage= 0;
+max_jump_stage= 1;
+is_on_stage = false;

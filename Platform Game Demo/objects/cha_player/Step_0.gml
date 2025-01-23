@@ -14,8 +14,20 @@ if (not keyboard_check(ord("A"))) && ( not (keyboard_check(ord("D")))){
 	hsp = 0;
 }
 
-if (keyboard_check(vk_space)){
-	vsp = -jump_speed;
+if (keyboard_check_pressed(vk_space)){
+	show_debug_message(+jump_stage)
+	show_debug_message(max_jump_stage)
+	if jump_stage < max_jump_stage && is_on_stage {
+		vsp = -jump_speed;
+		jump_stage = jump_stage + 1;
+	}
+}
+
+if place_meeting(x,y+1,env_ground){
+	is_on_stage = true;
+	jump_stage = 0;
+}else{
+	is_on_stage = false;
 }
 
 // 在这个引擎中,碰撞体是和图片绑定在一起的,如果想实现碰撞效果,需要先给对象新增以一个图片
