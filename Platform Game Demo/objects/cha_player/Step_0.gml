@@ -28,12 +28,15 @@ if (keyboard_check(vk_space)){
 
 // 在判定之前进行碰撞预判断
 if place_meeting(x,y+vsp,env_ground){
+	
+	normal_speed = vsp/abs(vsp) // 如果是＋1就是朝下 如果是-1就是朝上
+	
 	// 如果下一帧根地板相撞了 但是位置还没有到达地板上 就会出现人物悬停
 	// 但是这里我们要考虑到如果玩家在方块下面 头撞到了方块上
 	// 我们要使用一种递归的方式来解决这种问题 就是循环检测一下到底触底了吗
 	// 如果不是还有一个像素就接触的话,角色位置就向下移动一个像素 一直走到差一个像素的地方
-	while(not place_meeting(x,y+1,env_ground)){ // 这是一种弱语法语言 条件的地方可以没有括号
-		y = y+1;
+	while(not place_meeting(x,y+normal_speed,env_ground)){ // 这是一种弱语法语言 条件的地方可以没有括号
+		y = y+normal_speed;
 	}
 	vsp = 0;
 	
