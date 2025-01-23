@@ -11,7 +11,18 @@ if (keyboard_check(ord("D"))){
 }
 
 if (not keyboard_check(ord("A"))) && ( not (keyboard_check(ord("D")))){
-	hsp = 0;
+	if is_on_stage {
+		acc = walk_acc;
+	}else{
+		acc = jump_acc;
+	}
+	
+	
+	if abs(hsp) > acc{
+		hsp -= sign(hsp)*acc;
+	}else{
+		hsp = 0;
+	}
 }
 
 if (keyboard_check_pressed(vk_space)){

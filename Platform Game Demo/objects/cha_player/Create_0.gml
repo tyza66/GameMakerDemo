@@ -6,6 +6,9 @@ show_debug_message("这是一条控制台消息，当前创建了玩家对象")
 // y = 0;
 walk_speed = 10;
 jump_speed = 15;
+acc = 0.5;
+walk_acc = 1.5;
+jump_acc = 0.3;
 normal_speed = 0; // 用于判断当前玩家的方向
 hsp = 0; // 用于存储水平方向的速度
 vsp = 0; // 这是用于手动实现重力的垂直速度
