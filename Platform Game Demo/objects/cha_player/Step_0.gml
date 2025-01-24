@@ -7,7 +7,12 @@ if state == "待机"{
 	jump_stage = 0;
 	
 	// 状态跳转
-	if keyboard_check_pressed(ord("A")) or keyboard_check_pressed(ord("D")){
+	
+	if not is_on_ground(){
+		state = "下落"
+	}
+	
+	if keyboard_check(ord("A")) or keyboard_check(ord("D")){
 		state = "行走"
 	}
 	
@@ -39,7 +44,13 @@ else if state == "行走"{
 		hsp = lerp(0,hsp,0.78);					
 	}
 	
+	collide_horizontal()
+	
 	x += hsp;
+	
+	if not is_on_ground(){
+		state = "下落"
+	}
 
 	if  abs(hsp)<0.1{
 		state = "待机"
@@ -69,8 +80,10 @@ else if state == "起跳"{
 		hsp = lerp(0,hsp,0.85);					
 	}
 	
-	x += hsp;
+	collide_horizontal()
+	collide_vertical()
 	
+	x += hsp;
 	y += vsp;
 	vsp += grav;
 	
@@ -102,14 +115,8 @@ else if state == "下落"{
 		hsp = lerp(0,hsp,0.85);					
 	}
 	
-	if place_meeting(x,y+vsp,env_ground){
-	
-	normal_speed = sign(vsp);
-		while(not place_meeting(x,y+normal_speed,env_ground)){ 
-			y = y+normal_speed;
-		}
-		vsp = 0;
-	}
+	collide_horizontal()
+	collide_vertical()
 	
 	x += hsp;
 	y += vsp;
