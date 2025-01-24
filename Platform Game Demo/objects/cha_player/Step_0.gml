@@ -1,8 +1,13 @@
 if is_dead{
-	image_alpha -= 0.025;
 	if image_alpha <= -0.5{
 		//room_restart();
 		is_show_gameover = true;
+		if keyboard_check_pressed(vk_anykey) or mouse_check_button_pressed(mb_any){
+			room_restart();
+		}
+		
+	}else{
+		image_alpha -= 0.025;
 	}
 	return
 }

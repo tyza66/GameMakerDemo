@@ -1,0 +1,1 @@
+room_goto(lev_game_clear)
