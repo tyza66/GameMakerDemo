@@ -18,8 +18,10 @@ if state == "待机"{
 		shoot_stage = 0;
 		
 		if place_meeting(x,y,env_floor_oneway){
-			y = env_floor_oneway.y - 1;
-		}
+			var oneway_floor = isntance_palce(x,y,env_floor_oneway); // 这样就可以获得当前碰到的物体的id
+			y = oneway_floor.y - 1;
+		} // env_floor_oneway 这样获取实例的时候默认获取的是第一个
+		// 我们要用instance_place获取指定的instance
 	
 		// 在每个状态没变就不需要切换的东西上 可以设置flag来防止反复设置执行(为每个状态机添加入口状态和出口状态)
 		animation_set(anm_player)
