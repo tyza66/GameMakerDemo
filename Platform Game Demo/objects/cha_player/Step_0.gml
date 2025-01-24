@@ -3,6 +3,8 @@ var left = keyboard_check(ord("A"))
 var right = keyboard_check(ord("D"))
 var move_direction  = right - left;
 
+var shoot = mouse_check_button(mb_left)
+
 if place_meeting(x,y,env_door_stage2){
 	if(keyboard_check_pressed(ord("E"))){
 		room_goto(lev_stage_2)
@@ -12,6 +14,9 @@ if place_meeting(x,y,env_door_stage2){
 if state == "待机"{
 	// 状态逻辑
 	jump_stage = 0;
+	shoot_stage = 0;
+	sprite_index = anm_player
+	
 	
 	// 状态跳转
 	
@@ -21,6 +26,12 @@ if state == "待机"{
 	
 	if keyboard_check(ord("A")) or keyboard_check(ord("D")){
 		state = "行走"
+	}
+	
+	if shoot {
+		state = "射击"
+		image_speed = 1;
+		image_index = 0;
 	}
 	
 	if keyboard_check_pressed(vk_space){
@@ -35,12 +46,16 @@ else if state == "行走"{
 	sprite_index = anm_player
 	
 	// 行走判断
-	if (keyboard_check(ord("A"))){
-		face_towards = -1;
-	}
+	//if (keyboard_check(ord("A"))){
+	//	face_towards = -1;
+	//}
 
-	if (keyboard_check(ord("D"))){
-		face_towards = 1;
+	//if (keyboard_check(ord("D"))){
+	//	face_towards = 1;
+	//}
+	
+	if move_direction != 0  {
+		face_towards = move_direction;
 	}
 	
 
@@ -158,6 +173,46 @@ else if state == "死亡"{
 	}else{
 		image_alpha -= 0.025;
 	}
+}
+else if state == "射击"{
+	sprite_index = anm_player_shoot;
+	//image_index = 0; 当前帧
+	//image_speed = 0; 相当于设置里的fps参数的缩放
+	
+	
+	if shoot_stage == 0{
+		if animation_at(2){
+			image_speed = 0;
+			image_index = 2;
+		}
+	
+		// 因为帧数修正的值被设为0了所以不能写在上面那个if里面
+		if image_index==2 && mouse_check_button_released(mb_left){
+			hsp = -face_towards*back_speed
+			image_speed = 1;
+			image_index = 3;
+			shoot_stage++;
+		}else{
+			// 点击一瞬间就直接回待机
+			if mouse_check_button_released(mb_left){
+				state = "待机"
+			}
+		}
+	}else if  shoot_stage == 1{
+		image_speed = 0;
+		if abs(hsp) > 0.1 {
+			hsp = lerp(0,hsp,0.9);
+		}else{
+			image_speed = 1;
+			shoot_stage++;
+		}
+		x += hsp;
+	}else if shoot_stage == 2{
+		if animation_at(3){
+		state = "待机"
+		}
+	}
+	
 }
 
 show_debug_message(state)
