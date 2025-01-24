@@ -28,6 +28,7 @@ if (not keyboard_check(ord("A"))) && ( not (keyboard_check(ord("D")))){
 if (keyboard_check_pressed(vk_space)){
 	show_debug_message(+jump_stage)
 	show_debug_message(max_jump_stage)
+	// 游戏里面的时间单位是帧 所以这里直接省略掉乘以时间1
 	if jump_stage < max_jump_stage && is_on_stage {
 		vsp = -jump_speed;
 		jump_stage = jump_stage + 1;
