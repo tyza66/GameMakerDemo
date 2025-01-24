@@ -1,1 +1,1 @@
-is_dead = true;
+state = "死亡"

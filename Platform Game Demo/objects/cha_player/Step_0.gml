@@ -1,6 +1,12 @@
 var left = keyboard_check(ord("A"))
-	var right = keyboard_check(ord("D"))
-	var move_direction  = right - left;
+var right = keyboard_check(ord("D"))
+var move_direction  = right - left;
+
+if place_meeting(x,y,env_door_stage2){
+	if(keyboard_check_pressed(ord("E"))){
+		room_goto(lev_stage_2)
+	}
+}
 
 if state == "待机"{
 	// 状态逻辑
@@ -134,7 +140,18 @@ else if state == "下落"{
 		}
 	}
 }
-else if state == "死亡"{}
+else if state == "死亡"{
+	if image_alpha <= -0.5{
+		//room_restart();
+		is_show_gameover = true;
+		if keyboard_check_pressed(vk_anykey) or mouse_check_button_pressed(mb_any){
+			room_restart();
+		}
+		
+	}else{
+		image_alpha -= 0.025;
+	}
+}
 
 show_debug_message(state)
 
