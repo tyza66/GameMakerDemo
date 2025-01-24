@@ -4,10 +4,19 @@ var left = keyboard_check(ord("A"))
 
 if state == "待机"{
 	// 状态逻辑
+	jump_stage = 0;
 	
 	// 状态跳转
 	if keyboard_check_pressed(ord("A")) or keyboard_check_pressed(ord("D")){
 		state = "行走"
+	}
+	
+	if keyboard_check_pressed(vk_space){
+		if jump_stage < max_jump_stage{
+			state = "起跳"
+			vsp = - jump_speed;
+			jump_stage++;
+		}
 	}
 }
 else if state == "行走"{
@@ -27,7 +36,7 @@ else if state == "行走"{
 	}else{
 		// 如果没有按着左右方向行走的案件的时候
 		// 这次使用一种差插值算法
-		hsp = lerp(0,hsp,0.9);					
+		hsp = lerp(0,hsp,0.78);					
 	}
 	
 	x += hsp;
@@ -35,12 +44,96 @@ else if state == "行走"{
 	if  abs(hsp)<0.1{
 		state = "待机"
 	}
+	
+	if keyboard_check_pressed(vk_space){
+		if jump_stage < max_jump_stage{
+			state = "起跳"
+			vsp = - jump_speed;
+			jump_stage++;
+		}
+	}
 }
-else if state == "起跳"{}
-else if state == "下落"{}
+else if state == "起跳"{
+	// 在空中也可以左右移动
+	if (keyboard_check(ord("A"))){
+		face_towards = -1;
+	}
+
+	if (keyboard_check(ord("D"))){
+		face_towards = 1;
+	}
+	
+	if keyboard_check(ord("A")) or keyboard_check(ord("D")){
+		hsp = walk_speed * face_towards;
+	}else{
+		hsp = lerp(0,hsp,0.85);					
+	}
+	
+	x += hsp;
+	
+	y += vsp;
+	vsp += grav;
+	
+	if keyboard_check_pressed(vk_space){
+		if jump_stage < max_jump_stage{
+			state = "起跳"
+			vsp = - jump_speed;
+			jump_stage++;
+		}
+	}
+	
+	if vsp > 0{
+		state = "下落";
+	}
+}
+else if state == "下落"{
+	// 在空中也可以左右移动
+	if (keyboard_check(ord("A"))){
+		face_towards = -1;
+	}
+
+	if (keyboard_check(ord("D"))){
+		face_towards = 1;
+	}
+	
+	if keyboard_check(ord("A")) or keyboard_check(ord("D")){
+		hsp = walk_speed * face_towards;
+	}else{
+		hsp = lerp(0,hsp,0.85);					
+	}
+	
+	if place_meeting(x,y+vsp,env_ground){
+	
+	normal_speed = sign(vsp);
+		while(not place_meeting(x,y+normal_speed,env_ground)){ 
+			y = y+normal_speed;
+		}
+		vsp = 0;
+	}
+	
+	x += hsp;
+	y += vsp;
+	vsp += grav;
+	
+	if place_meeting(x,y+1,env_ground){
+		state = "待机"
+	}
+	
+	if keyboard_check_pressed(vk_space){
+		if jump_stage < max_jump_stage{
+			state = "起跳"
+			vsp = - jump_speed;
+			jump_stage++;
+		}
+	}
+}
 else if state == "死亡"{}
 
 show_debug_message(state)
+
+if keyboard_check_pressed(vk_f5){
+room_restart()
+}
 
 exit; // 这样就会跳过下面所有的代码
 
