@@ -21,3 +21,9 @@ is_on_stage = false;
 
 is_dead = false;
 is_show_gameover = false;
+
+// 我们可以手动实现状态机
+state = "待机";
+
+// 人物朝向
+face_towards = 1;

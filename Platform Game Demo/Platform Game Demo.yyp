@@ -45,6 +45,7 @@
     {"id":{"name":"lev_game_clear","path":"rooms/lev_game_clear/lev_game_clear.yy",},},
     {"id":{"name":"lev_stage_1","path":"rooms/lev_stage_1/lev_stage_1.yy",},},
     {"id":{"name":"lev_stage_2","path":"rooms/lev_stage_2/lev_stage_2.yy",},},
+    {"id":{"name":"lev_stage_test","path":"rooms/lev_stage_test/lev_stage_test.yy",},},
     {"id":{"name":"lev_start_menu","path":"rooms/lev_start_menu/lev_start_menu.yy",},},
     {"id":{"name":"game_end","path":"sprites/game_end/game_end.yy",},},
     {"id":{"name":"game_start","path":"sprites/game_start/game_start.yy",},},
@@ -62,6 +63,7 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"lev_stage_test","path":"rooms/lev_stage_test/lev_stage_test.yy",},},
     {"roomId":{"name":"lev_start_menu","path":"rooms/lev_start_menu/lev_start_menu.yy",},},
     {"roomId":{"name":"lev_stage_1","path":"rooms/lev_stage_1/lev_stage_1.yy",},},
     {"roomId":{"name":"lev_stage_2","path":"rooms/lev_stage_2/lev_stage_2.yy",},},

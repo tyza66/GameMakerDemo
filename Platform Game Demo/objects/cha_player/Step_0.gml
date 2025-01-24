@@ -1,3 +1,52 @@
+var left = keyboard_check(ord("A"))
+	var right = keyboard_check(ord("D"))
+	var move_direction  = right - left;
+
+if state == "待机"{
+	// 状态逻辑
+	
+	// 状态跳转
+	if keyboard_check_pressed(ord("A")) or keyboard_check_pressed(ord("D")){
+		state = "行走"
+	}
+}
+else if state == "行走"{
+	
+	// 行走判断
+	if (keyboard_check(ord("A"))){
+		face_towards = -1;
+	}
+
+	if (keyboard_check(ord("D"))){
+		face_towards = 1;
+	}
+	
+	if keyboard_check(ord("A")) or keyboard_check(ord("D")){
+		// 在GML中的真是1 假是0 所以可以使用数学方法成为一种技巧
+		hsp = walk_speed * face_towards;
+	}else{
+		// 如果没有按着左右方向行走的案件的时候
+		// 这次使用一种差插值算法
+		hsp = lerp(0,hsp,0.9);					
+	}
+	
+	x += hsp;
+
+	if  abs(hsp)<0.1{
+		state = "待机"
+	}
+}
+else if state == "起跳"{}
+else if state == "下落"{}
+else if state == "死亡"{}
+
+show_debug_message(state)
+
+exit; // 这样就会跳过下面所有的代码
+
+
+
+
 if is_dead{
 	if image_alpha <= -0.5{
 		//room_restart();
