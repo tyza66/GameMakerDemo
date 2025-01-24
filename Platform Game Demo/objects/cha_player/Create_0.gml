@@ -33,3 +33,5 @@ shoot_stage = 0;
 
 into_state = true
 leave_state = false
+
+can_pass = false;

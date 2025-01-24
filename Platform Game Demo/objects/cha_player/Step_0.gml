@@ -1,6 +1,7 @@
 // 也可以将操作输入保存到这里之后下面直接判断这些
 var left = keyboard_check(ord("A"))
 var right = keyboard_check(ord("D"))
+var down = keyboard_check(ord("S"))
 var move_direction  = right - left;
 
 var shoot = mouse_check_button(mb_left)
@@ -18,8 +19,10 @@ if state == "待机"{
 		shoot_stage = 0;
 		
 		if place_meeting(x,y,env_floor_oneway){
-			var oneway_floor = isntance_palce(x,y,env_floor_oneway); // 这样就可以获得当前碰到的物体的id
-			y = oneway_floor.y - 1;
+			if not can_pass{
+				var oneway_floor = instance_place(x,y,env_floor_oneway); // 这样就可以获得当前碰到的物体的id
+				y = oneway_floor.y - 1;
+			}
 		} // env_floor_oneway 这样获取实例的时候默认获取的是第一个
 		// 我们要用instance_place获取指定的instance
 	
@@ -47,11 +50,19 @@ if state == "待机"{
 	}
 	
 	if keyboard_check_pressed(vk_space){
-		if jump_stage < max_jump_stage{
+		
+		if is_on_ground(env_floor_oneway) && down{
+			can_pass = true;
+			y = y + 1; // 直接向下移动一个像素 使得当前位置修正为刚好和单向膜接触
+			next_state("下落")
+		}else{
+			if jump_stage < max_jump_stage{
 			next_state("起跳")
 			vsp = - jump_speed;
 			jump_stage++;
+			}
 		}
+		
 	}
 	
 	if is_leav_state(){
@@ -164,8 +175,10 @@ else if state == "起跳"{
 }
 else if state == "下落"{
 	if is_into_state() {
-		if place_meeting(x,y,env_floor_oneway){
-			y = env_floor_oneway.y - 1;
+		if not can_pass {
+			if place_meeting(x,y,env_floor_oneway){
+				y = env_floor_oneway.y - 1;
+			}
 		}
 		init_state()
 	}
@@ -185,18 +198,24 @@ else if state == "下落"{
 		hsp = lerp(0,hsp,0.85);					
 	}
 	
+	// 进行完全穿过后的操作
+	if can_pass {
+		if not place_meeting(x,y,env_floor_oneway){
+			can_pass = false;
+		}
+	}
 	
 	
 	collide_horizontal(env_floor)
 	collide_vertical(env_floor)
-	collide_vertical(env_floor_oneway)
+	if not can_pass collide_vertical(env_floor_oneway)
 	
 	x += hsp;
 	y += vsp;
 	vsp += grav;
 	
 	if is_on_ground(env_floor) or is_on_ground(env_floor_oneway){
-		next_state("待机");
+		if not can_pass next_state("待机");
 	}
 	
 	if keyboard_check_pressed(vk_space){
