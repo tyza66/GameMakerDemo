@@ -1,3 +1,4 @@
+// 也可以将操作输入保存到这里之后下面直接判断这些
 var left = keyboard_check(ord("A"))
 var right = keyboard_check(ord("D"))
 var move_direction  = right - left;
