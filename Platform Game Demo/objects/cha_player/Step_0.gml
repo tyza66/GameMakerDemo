@@ -118,11 +118,19 @@ else if state == "行走"{
 	}
 	
 	if keyboard_check_pressed(vk_space){
-		if jump_stage < max_jump_stage{
+		
+		if is_on_ground(env_floor_oneway) && down{
+			can_pass = true;
+			y = y + 1; // 直接向下移动一个像素 使得当前位置修正为刚好和单向膜接触
+			next_state("下落")
+		}else{
+			if jump_stage < max_jump_stage{
 			next_state("起跳")
 			vsp = - jump_speed;
 			jump_stage++;
+			}
 		}
+		
 	}
 	
 	if is_leav_state(){
