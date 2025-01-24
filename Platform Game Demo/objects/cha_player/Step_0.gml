@@ -15,6 +15,8 @@ if state == "待机"{
 	// 状态逻辑
 	jump_stage = 0;
 	shoot_stage = 0;
+	
+	// 在每个状态没变就不需要切换的东西上 可以设置flag来防止反复设置执行(为每个状态机添加入口状态和出口状态)
 	animation_set(anm_player)
 	
 	
