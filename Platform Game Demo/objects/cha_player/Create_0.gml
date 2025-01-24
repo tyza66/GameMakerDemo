@@ -20,3 +20,4 @@ max_jump_stage= 1;
 is_on_stage = false;
 
 is_dead = false;
+is_show_gameover = false;

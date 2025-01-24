@@ -1,7 +1,8 @@
 if is_dead{
 	image_alpha -= 0.025;
-	if image_alpha <=0{
-		room_restart();
+	if image_alpha <= -0.5{
+		//room_restart();
+		is_show_gameover = true;
 	}
 	return
 }
