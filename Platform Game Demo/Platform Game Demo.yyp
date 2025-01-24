@@ -48,6 +48,7 @@
     {"id":{"name":"lev_stage_test","path":"rooms/lev_stage_test/lev_stage_test.yy",},},
     {"id":{"name":"lev_start_menu","path":"rooms/lev_start_menu/lev_start_menu.yy",},},
     {"id":{"name":"collision","path":"scripts/collision/collision.yy",},},
+    {"id":{"name":"anm_player","path":"sprites/anm_player/anm_player.yy",},},
     {"id":{"name":"game_end","path":"sprites/game_end/game_end.yy",},},
     {"id":{"name":"game_start","path":"sprites/game_start/game_start.yy",},},
     {"id":{"name":"img_dead_zone","path":"sprites/img_dead_zone/img_dead_zone.yy",},},

@@ -4,7 +4,7 @@ show_debug_message("这是一条控制台消息，当前创建了玩家对象")
 // 坐标原点位于左上角 修改x和y的值就是修改当前对象的值
 // x = 0;
 // y = 0;
-walk_speed = 10;
+walk_speed = 3;
 jump_speed = 15;
 acc = 0.5;
 walk_acc = 1.5;

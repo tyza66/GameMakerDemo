@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"img_player",
-    "path":"sprites/img_player/img_player.yy",
+    "name":"anm_player",
+    "path":"sprites/anm_player/anm_player.yy",
   },
   "spriteMaskId":null,
   "visible":true,

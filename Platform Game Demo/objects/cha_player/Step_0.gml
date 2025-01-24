@@ -32,6 +32,7 @@ if state == "待机"{
 	}
 }
 else if state == "行走"{
+	sprite_index = anm_player
 	
 	// 行走判断
 	if (keyboard_check(ord("A"))){
@@ -42,13 +43,18 @@ else if state == "行走"{
 		face_towards = 1;
 	}
 	
+
+	// 控制人物朝向
+	image_xscale = face_towards
+
 	if keyboard_check(ord("A")) or keyboard_check(ord("D")){
 		// 在GML中的真是1 假是0 所以可以使用数学方法成为一种技巧
 		hsp = walk_speed * face_towards;
 	}else{
 		// 如果没有按着左右方向行走的案件的时候
 		// 这次使用一种差插值算法
-		hsp = lerp(0,hsp,0.78);					
+		hsp = lerp(0,hsp,0.78);			
+		// 一般减速的时候直接就可以进入待机状态了
 	}
 	
 	collide_horizontal()
