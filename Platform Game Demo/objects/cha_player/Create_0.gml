@@ -30,3 +30,6 @@ state = "待机";
 face_towards = 1;
 
 shoot_stage = 0;
+
+into_state = true
+leave_state = false

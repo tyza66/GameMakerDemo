@@ -12,40 +12,58 @@ if place_meeting(x,y,env_door_stage2){
 }
 
 if state == "待机"{
-	// 状态逻辑
-	jump_stage = 0;
-	shoot_stage = 0;
+	if is_into_state() {
+		// 状态逻辑
+		jump_stage = 0;
+		shoot_stage = 0;
+		
+		if place_meeting(x,y,env_floor_oneway){
+			y = env_floor_oneway.y - 1;
+		}
 	
-	// 在每个状态没变就不需要切换的东西上 可以设置flag来防止反复设置执行(为每个状态机添加入口状态和出口状态)
-	animation_set(anm_player)
+		// 在每个状态没变就不需要切换的东西上 可以设置flag来防止反复设置执行(为每个状态机添加入口状态和出口状态)
+		animation_set(anm_player)
+		init_state()
+	}
+	
 	
 	
 	// 状态跳转
 	
-	if not is_on_ground(){
-		state = "下落"
+	if not is_on_ground(env_floor) and not is_on_ground(env_floor_oneway){
+		next_state("下落")
 	}
 	
 	if keyboard_check(ord("A")) or keyboard_check(ord("D")){
-		state = "行走"
+		next_state("行走")
 	}
 	
 	if shoot {
-		state = "射击"
+		next_state("射击")
 		image_speed = 1;
 		image_index = 0;
 	}
 	
 	if keyboard_check_pressed(vk_space){
 		if jump_stage < max_jump_stage{
-			state = "起跳"
+			next_state("起跳")
 			vsp = - jump_speed;
 			jump_stage++;
 		}
 	}
+	
+	if is_leav_state(){
+		get_out_state();
+	}
+	
 }
 else if state == "行走"{
-	animation_set(anm_player)
+	
+	if is_into_state() {
+		animation_set(anm_player)
+		init_state()
+	}
+	
 	
 	// 行走判断
 	//if (keyboard_check(ord("A"))){
@@ -74,27 +92,36 @@ else if state == "行走"{
 		// 一般减速的时候直接就可以进入待机状态了
 	}
 	
-	collide_horizontal()
+	collide_horizontal(env_floor)
 	
 	x += hsp;
 	
-	if not is_on_ground(){
-		state = "下落"
+	if not is_on_ground(env_floor) and not is_on_ground(env_floor_oneway){
+		next_state("下落")
 	}
 
 	if  abs(hsp)<0.1{
-		state = "待机"
+		next_state("待机")
 	}
 	
 	if keyboard_check_pressed(vk_space){
 		if jump_stage < max_jump_stage{
-			state = "起跳"
+			next_state("起跳")
 			vsp = - jump_speed;
 			jump_stage++;
 		}
 	}
+	
+	if is_leav_state(){
+		get_out_state();
+	}
+	
 }
 else if state == "起跳"{
+	if is_into_state() {
+		init_state()
+	}
+	
 	// 在空中也可以左右移动
 	if (keyboard_check(ord("A"))){
 		face_towards = -1;
@@ -110,8 +137,8 @@ else if state == "起跳"{
 		hsp = lerp(0,hsp,0.85);					
 	}
 	
-	collide_horizontal()
-	collide_vertical()
+	collide_horizontal(env_floor)
+	collide_vertical(env_floor)
 	
 	x += hsp;
 	y += vsp;
@@ -119,17 +146,28 @@ else if state == "起跳"{
 	
 	if keyboard_check_pressed(vk_space){
 		if jump_stage < max_jump_stage{
-			state = "起跳"
+			next_state("起跳")
 			vsp = - jump_speed;
 			jump_stage++;
 		}
 	}
 	
 	if vsp > 0{
-		state = "下落";
+		next_state("下落");
+	}
+	
+	if is_leav_state(){
+		get_out_state();
 	}
 }
 else if state == "下落"{
+	if is_into_state() {
+		if place_meeting(x,y,env_floor_oneway){
+			y = env_floor_oneway.y - 1;
+		}
+		init_state()
+	}
+	
 	// 在空中也可以左右移动
 	if (keyboard_check(ord("A"))){
 		face_towards = -1;
@@ -145,23 +183,30 @@ else if state == "下落"{
 		hsp = lerp(0,hsp,0.85);					
 	}
 	
-	collide_horizontal()
-	collide_vertical()
+	
+	
+	collide_horizontal(env_floor)
+	collide_vertical(env_floor)
+	collide_vertical(env_floor_oneway)
 	
 	x += hsp;
 	y += vsp;
 	vsp += grav;
 	
-	if place_meeting(x,y+1,env_ground){
-		state = "待机"
+	if is_on_ground(env_floor) or is_on_ground(env_floor_oneway){
+		next_state("待机");
 	}
 	
 	if keyboard_check_pressed(vk_space){
 		if jump_stage < max_jump_stage{
-			state = "起跳"
+			next_state("起跳");
 			vsp = - jump_speed;
 			jump_stage++;
 		}
+	}
+	
+	if is_leav_state(){
+		get_out_state();
 	}
 }
 else if state == "死亡"{
@@ -177,7 +222,11 @@ else if state == "死亡"{
 	}
 }
 else if state == "射击"{
-	animation_set(anm_player_shoot);
+	if is_into_state() {
+		animation_set(anm_player_shoot);
+		init_state()
+	}
+	
 	//image_index = 0; 当前帧
 	//image_speed = 0; 相当于设置里的fps参数的缩放
 	
@@ -206,7 +255,7 @@ else if state == "射击"{
 		}else{
 			// 点击一瞬间就直接回待机
 			if mouse_check_button_released(mb_left){
-				state = "待机"
+				next_state("待机");
 			}
 		}
 	}else if  shoot_stage == 1{
@@ -219,8 +268,12 @@ else if state == "射击"{
 		x += hsp;
 	}else if shoot_stage == 2{
 		
-		state = "待机"
+		next_state("待机");
 
+	}
+	
+	if is_leav_state(){
+		get_out_state();
 	}
 	
 }
