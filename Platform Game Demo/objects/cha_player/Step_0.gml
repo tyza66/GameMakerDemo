@@ -112,3 +112,9 @@ vsp = vsp + grav;
 
 // 其实除了那些以外还有一种全局变量 作用域是全局
 global.myGlobalVariable = 96;
+
+if place_meeting(x,y,env_door_stage2){
+	if(keyboard_check_pressed(ord("E"))){
+		room_goto(lev_stage_2)
+	}
+}
