@@ -11,5 +11,7 @@ function animation_at(frame_index){
 function animation_set(animation){
 	if sprite_index != animation {
 		sprite_index = animation;
+		image_index = 0;
+		image_speed = 1;
 	}
 }

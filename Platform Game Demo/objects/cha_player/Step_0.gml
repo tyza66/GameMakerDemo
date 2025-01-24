@@ -15,7 +15,7 @@ if state == "待机"{
 	// 状态逻辑
 	jump_stage = 0;
 	shoot_stage = 0;
-	sprite_index = anm_player
+	animation_set(anm_player)
 	
 	
 	// 状态跳转
@@ -43,7 +43,7 @@ if state == "待机"{
 	}
 }
 else if state == "行走"{
-	sprite_index = anm_player
+	animation_set(anm_player)
 	
 	// 行走判断
 	//if (keyboard_check(ord("A"))){
@@ -175,7 +175,7 @@ else if state == "死亡"{
 	}
 }
 else if state == "射击"{
-	sprite_index = anm_player_shoot;
+	animation_set(anm_player_shoot);
 	//image_index = 0; 当前帧
 	//image_speed = 0; 相当于设置里的fps参数的缩放
 	
@@ -188,6 +188,15 @@ else if state == "射击"{
 	
 		// 因为帧数修正的值被设为0了所以不能写在上面那个if里面
 		if image_index==2 && mouse_check_button_released(mb_left){
+			var arrow = instance_create_layer(x,y-16,"bullet",bt_arrow);
+			arrow.speed = 10;
+			arrow.direction = 90 - face_towards * 90;
+			//if(face_towards == 1){
+			//	arrow.direction = 0;
+			//}else{
+			//	arrow.direction = 180;
+			//}
+			
 			hsp = -face_towards*back_speed
 			image_speed = 1;
 			image_index = 3;
@@ -201,16 +210,15 @@ else if state == "射击"{
 	}else if  shoot_stage == 1{
 		image_speed = 0;
 		if abs(hsp) > 0.1 {
-			hsp = lerp(0,hsp,0.9);
+			hsp = lerp(0,hsp,0.8);
 		}else{
-			image_speed = 1;
 			shoot_stage++;
 		}
 		x += hsp;
 	}else if shoot_stage == 2{
-		if animation_at(3){
+		
 		state = "待机"
-		}
+
 	}
 	
 }

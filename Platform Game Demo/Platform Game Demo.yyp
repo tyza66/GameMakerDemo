@@ -34,6 +34,7 @@
   },
   "name":"Platform Game Demo",
   "resources":[
+    {"id":{"name":"bt_arrow","path":"objects/bt_arrow/bt_arrow.yy",},},
     {"id":{"name":"btn_game_clear","path":"objects/btn_game_clear/btn_game_clear.yy",},},
     {"id":{"name":"btn_game_end","path":"objects/btn_game_end/btn_game_end.yy",},},
     {"id":{"name":"btn_game_start","path":"objects/btn_game_start/btn_game_start.yy",},},
