@@ -18,3 +18,5 @@ grav = 0.7;
 jump_stage= 0;
 max_jump_stage= 1;
 is_on_stage = false;
+
+is_dead = false;

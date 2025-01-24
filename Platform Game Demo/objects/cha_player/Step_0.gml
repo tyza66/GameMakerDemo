@@ -1,3 +1,11 @@
+if is_dead{
+	image_alpha -= 0.025;
+	if image_alpha <=0{
+		room_restart();
+	}
+	return
+}
+
 // Step是每一帧的时间节点
 // 设置中设置了默认每秒是60帧 那就是说默认会每秒执行60下
 
